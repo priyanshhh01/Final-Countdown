@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relationship Countdown ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@600&display=swap');
+
+        body {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+        }
+        h1 {
+            font-size: 3rem;
+            color: #fff5f7;
+            font-family: 'Raleway', sans-serif;
+        }
+        .flip-clock {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+        .flip-card {
+            background: #ffdee9;
+            color: #d6336c;
+            padding: 12px 24px;
+            border-radius: 10px;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            min-width: 70px;
+        }
+        .info-text {
+            font-size: 1.6rem;
+            color: #fff0f5;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .breakup-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.4);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        .breakup-button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .teddy-animation {
+            width: 150px;
+            height: 150px;
+            background: url('https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif') no-repeat center;
+            background-size: cover;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time left till our next aniversary🤭🧿</h1>
+        <div class="flip-clock" id="countdown"></div>
+        <p class="info-text" id="days-together"></p>
+        <p class="info-text" id="months"></p>
+        <div class="teddy-animation"></div>
+    </div>
+
+    <div class="breakup-counter">
+        <p>Times we broke up😔: <span id="breakup-count">0</span></p>
+        <button class="breakup-button" onclick="increaseBreakupCount()">+1</button>
+    </div>
+
+    <script>
+        let breakupCount = 0;
+
+        function updateCountdown() {
+            const anniversary = new Date("2025-04-06T00:00:00");
+            const startDate = new Date("2024-11-06T00:00:00");
+            const now = new Date();
+            
+            // Calculate countdown
+            const diff = anniversary - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById("countdown").innerHTML = `
+                <div class='flip-card'>${String(days).padStart(2, '0')}</div>
+                <span>:</span>
+                <div class='flip-card'>${String(hours).padStart(2, '0')}</div>
+                <span>:</span>
+                <div class='flip-card'>${String(minutes).padStart(2, '0')}</div>
+                <span>:</span>
+                <div class='flip-card'>${String(seconds).padStart(2, '0')}</div>
+            `;
+            
+            // Calculate months together
+            const monthDiff = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+            document.getElementById("months").innerText = `It's our  ${monthDiff}th month together and a forever to go🥹🧿`;
+            
+            // Calculate days together
+            const daysTogether = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+            document.getElementById("days-together").innerText = `We've been together for ${daysTogether} days😭🧿🫶`;
+        }
+        
+        function increaseBreakupCount() {
+            breakupCount++;
+            document.getElementById("breakup-count").innerText = breakupCount;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000); // Update every second
+    </script>
+</body>
+</html>
